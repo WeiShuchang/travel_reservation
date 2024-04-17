@@ -1,4 +1,5 @@
 <?php
+// RedirectIfAuthenticated Middleware
 
 namespace App\Http\Middleware;
 
@@ -10,13 +11,16 @@ class RedirectIfAuthenticated
 {
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (Auth::guard('web')->check()) {
+        // Check if the user is already authenticated
+        if (Auth::check()) {
             $role = Auth::user()->role;
             
-            // Determine redirect route based on user's role
-            $redirectRoute = $role === 'admin' ? 'administrator' : 'user';
-            
-            return redirect()->route($redirectRoute);
+            // Redirect to appropriate dashboard based on user role
+            if ($role === 'admin') {
+                return redirect()->route('administrator')->withHeaders(['Cache-Control' => 'no-cache, no-store, must-revalidate']);
+            } elseif ($role === 'user') {
+                return redirect()->route('user')->withHeaders(['Cache-Control' => 'no-cache, no-store, must-revalidate']);
+            }
         }
 
         return $next($request);

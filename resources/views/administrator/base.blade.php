@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>ELugan</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Favicon-->
@@ -30,34 +33,45 @@
             </li>
 
             <li class="nav-item" id="travel_request">
-              <a class="nav-link text mx-3 position-relative " id="travel-request-link" href="">
+              <a class="nav-link text mx-3 position-relative " id="travel-request-link" href="{{ route('reservation.index') }}">
                   Travel Request
-                 {{--@if($num_reservations > 0)
-                      <span class="badge badge-danger badge-pill">{{ $num_reservations }}</span>
-                  @endif--}} 
+                 @if($num_pending_reservations > 0)
+                      <span class="badge badge-danger badge-pill">{{ $num_pending_reservations }}</span>
+                  @endif
               </a>
             </li>
 
-            <li class="nav-item" id="approved_travel">
-              <a class="nav-link text mx-3 " id="approved-travel-link" href="">Approved Travel
-                {{--@if($num_approved_reservations > 0)
-                      <span class="badge badge-primary badge-pill">{{ $num_approved_reservations }}</span>
-                  @endif--}}
+            <li class="nav-item" id="approved_request">
+              <a class="nav-link text mx-3 position-relative " id="approved-request-link" href="{{ route('reservation.approved') }}">
+                  Ongoing Travel
+                 @if($num_approved_reservations > 0)
+                      <span class="badge badge-warning badge-pill">{{ $num_approved_reservations }}</span>
+                  @endif
               </a>
             </li>
 
-            
-
+            <li class="nav-item dropdown mx-3">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown car-inventory-link driver-inventory-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Travels
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item nav-link text" id="driver-inventory-link" href="{{ route('reservation.show_completed') }}">Completed Travel</a>
+                <a class="dropdown-item nav-link text" id="car-inventory-link" href="{{ route('reservation.show_cancelled') }}">Cancelled Travel</a>
+              </div>
+            </li>
+           
             <li class="nav-item dropdown mx-3">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown car-inventory-link driver-inventory-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Inventories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item nav-link text" id="car-inventory-link" href="">Car Inventory</a>
+                <a class="dropdown-item nav-link text" id="car-inventory-link" href="/cars_inventory">Car Inventory</a>
                 <a class="dropdown-item nav-link text" id="driver-inventory-link" href="/drivers_inventory">Driver Inventory</a>
 
               </div>
             </li>
+
+            
 
           </ul>
           <ul class="navbar-nav">

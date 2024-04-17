@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Driver;
-use App\Http\Requests\StoreDriverRequest;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -13,15 +14,15 @@ class DriverController extends Controller
 {
     public function index()
     {
-        $drivers = Driver::all();
+        $drivers = Driver::paginate(5);
         return view('administrator.driver_inventory', compact('drivers'));
     }
 
-    public function create()
-    {
-        return view('administrator.add_driver');
+    public function create(Driver $drivers)
+    {   
+        $drivers = Driver::all();
+        return view('administrator.add_driver', compact('drivers'));
     }
-
     public function store(Request $request)
     {
         // Validate the request data
@@ -32,32 +33,38 @@ class DriverController extends Controller
             'driver_status' => 'required|string|max:50',
             'driver_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming max file size is 2MB
         ]);
-
-        // Check if a file was uploaded
-        if ($request->hasFile('driver_picture')) {
-            // Store the uploaded file
-            $imagePath = $request->file('driver_picture')->store('public/drivers');
-            // Get the filename from the stored path
-            $imageName = basename($imagePath);
-        } else {
-            // Use a default image if no file was uploaded
-            $imageName = 'default-driver.jpeg';
+    
+        try {
+            // Check if a file was uploaded
+            if ($request->hasFile('driver_picture')) {
+                // Store the uploaded file
+                $imagePath = $request->file('driver_picture')->store('public/drivers');
+                // Get the filename from the stored path
+                $imageName = basename($imagePath);
+            } else {
+                // Use a default image if no file was uploaded
+                $imageName = 'default-driver.jpeg';
+            }
+    
+            // Create a new Driver instance
+            $driver = new Driver();
+            $driver->driver_name = $validatedData['driver_name'];
+            $driver->license_number = $validatedData['license_number'];
+            $driver->contact_number = $validatedData['contact_number'];
+            $driver->driver_status = $validatedData['driver_status'];
+            $driver->driver_picture = $imageName;
+            
+            // Save the driver
+            $driver->save();
+    
+            // Redirect with success message
+            return redirect()->route('drivers_inventory.index')->with('success', 'Driver successfully added');
+        } catch (\Exception $e) {
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to add driver. Please try again.');
         }
-
-        // Create a new Driver instance
-        $driver = new Driver();
-        $driver->driver_name = $validatedData['driver_name'];
-        $driver->license_number = $validatedData['license_number'];
-        $driver->contact_number = $validatedData['contact_number'];
-        $driver->driver_status = $validatedData['driver_status'];
-        $driver->driver_picture = $imageName;
-        
-        // Save the driver
-        $driver->save();
-
-        // Redirect with success message
-        return redirect()->route('driver_inventory')->with('success', 'Driver successfully added');
     }
+    
 
     public function edit($driver_id)
     {
@@ -99,7 +106,7 @@ class DriverController extends Controller
         }
     
         // Redirect with success message
-        return redirect()->route('driver_inventory')->with('success', 'Driver information edited successfully.');
+        return redirect()->route('drivers_inventory.index')->with('success', 'Driver information edited successfully.');
     }
     
 
@@ -107,6 +114,6 @@ class DriverController extends Controller
     {
         $driver = Driver::findOrFail($driver_id);
         $driver->delete();
-        return Redirect::route('driver_inventory')->with('success', 'Driver successfully deleted');
+        return Redirect::route('drivers_inventory.index')->with('success', 'Driver successfully deleted');
     }
 }

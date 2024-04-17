@@ -20,7 +20,7 @@
                 </div>
         
         @endif
-    <form method="post" action="{{ route('update_driver', $driver->id) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('drivers_inventory.update', $driver->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -47,9 +47,19 @@
                     <input type="text" class="form-control" value="{{ $driver->contact_number }}" id="contact_number" name="contact_number">
                 </div>
                 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 mt-4">
                     <label for="driver_status">Driver Status</label>
-                    <input type="text" class="form-control" value="{{ $driver->driver_status }}" id="driver_status" name="driver_status">
+                  
+                    <select name="driver_status" class="px-3 py-2" id="driver_status">
+                    @if ($driver->driver_status == 'available')
+                        <option value="available" selected>Available</option>
+                        <option value="unavailable" >Unavailable</option>
+                    @else
+                        <option value="available" >Available</option>
+                        <option value="unavailable" selected>Unavailable</option>
+                    @endif
+                    </select>
+                    
                 </div>
                 
                 <div class="form-group col-md-6 pt-2">
@@ -59,7 +69,7 @@
 
                 <div class="form-group col-md-6 mt-4">
                     <button type="submit" class="btn btn-success">Edit Driver</button>
-                    <a href="{{ route('driver_inventory') }}" class="my-2 btn btn-warning">Cancel</a>
+                    <a href="{{ route('drivers_inventory.index') }}" class="my-2 btn btn-warning">Cancel</a>
                 </div>
             </div>
         </div>

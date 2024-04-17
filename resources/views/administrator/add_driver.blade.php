@@ -9,17 +9,13 @@
 <div class="bg-success2" style="height: 100vh;">
     <div class="container py-2 text-white">
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
-        <form method="post" action="{{ route('store_driver') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('drivers_inventory.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="row">
@@ -36,17 +32,20 @@
                     <label for="contact_number">Contact Number</label>
                     <input type="number" class="form-control" id="contact_number" name="contact_number" required>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 mt-4">
                     <label for="driver_status">Driver Status</label>
-                    <input type="text" class="form-control" id="driver_status" name="driver_status" required>
+                    <select name="driver_status" class="px-3 py-2" id="driver_status">
+                        <option value="available" >Available</option>
+                        <option value="unavailable" >Unavailable</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="driver_picture">Driver Picture</label>
-                    <input type="file" name="driver_picture" id="driver_picture" accept="image/*">
+                    <input type="file" name="driver_picture" id="driver_picture" accept="image/*" required>
                 </div>
                 <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-success">Add Driver</button>
-                    <a href="{{ route('driver_inventory') }}" class="my-2 btn btn-warning">Cancel</a>
+                    <a href="{{ route('drivers_inventory.index') }}" class="my-2 btn btn-warning">Cancel</a>
                 </div>
             </div>
 

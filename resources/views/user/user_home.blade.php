@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <header class="bg-success" style="height: 100vh;">
     @if(session('success'))
         <div class="alert alert-success" role="alert" id="alert-message">
@@ -15,7 +16,7 @@
                     <h1 class="display-1 fw-bolder text-yellow mb-2">Welcome User!</h1>
                     <p class="lead fw-normal text-white-50 mb-4"></p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                        <a class="btn btn-warning btn-lg px-4" href="">Reserve A Vehicle</a>
+                        <a class="btn btn-warning btn-lg px-4" href="{{ route('reservation.create') }}">Make A Request</a>
                     </div>
                 </div>
             </div>

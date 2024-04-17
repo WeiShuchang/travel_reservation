@@ -30,5 +30,9 @@ class Driver extends Model
         return "{$this->driver_name} {$this->contact_number}";
     }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
     
 }
