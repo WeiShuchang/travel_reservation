@@ -103,28 +103,35 @@
                 <tr>
                     <td>
                         <label for="number_of_passengers" class="text-yellow font-weight-bold">Number of Passengers Needed:</label>
-                        <input type="number" name="number_of_passengers" id="number_of_passengers" class="form-control  form-control-sm"" value="{{ $reservation->number_of_passengers }}">
+                        <input type="number" name="number_of_passengers" id="number_of_passengers" class="form-control form-control-sm" value="{{ old('number_of_passengers', $reservation->number_of_passengers) }}">
+
                     </td>
                 </tr>
 
                     <tr>
                         <td> 
                             <label for="driver" class="text-yellow font-weight-bold">Assign Driver:</label>
-                            <select name="driver_id" id="" class="px-3 py-1">
+                            <select name="driver_id" id="driver_id" class="px-3 py-1">
                                 @foreach ($drivers as $driver)
-                                    <option value="{{$driver->id}}">{{$driver->driver_name}} </option>
+                                    <option value="{{ $driver->id }}" {{ old('driver_id', $reservation->driver_id) == $driver->id ? 'selected' : '' }}>
+                                        {{ $driver->driver_name }}
+                                    </option>
                                 @endforeach
                             </select>
+
                         </td>
                     </tr>
                     <tr>
                         <td> 
                             <label for="car" class="text-yellow font-weight-bold">Assign Car:</label>
-                            <select name="car_id" id=""  class="px-3 py-1">
+                            <select name="car_id" id="car_id" class="px-3 py-1">
                                 @foreach ($cars as $car)
-                                    <option value="{{$car->id}}">{{$car->make}} | {{$car->plate_number}}</option>
+                                    <option value="{{ $car->id }}" {{ old('car_id', $reservation->car_id) == $car->id ? 'selected' : '' }}>
+                                        {{ $car->make }} | {{ $car->plate_number }}
+                                    </option>
                                 @endforeach
                             </select>
+
                         </td>
                     </tr>
                     <tr>
