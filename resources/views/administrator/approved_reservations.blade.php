@@ -18,11 +18,11 @@
             <table class="table table-bordered text-white bg-success2">
                 <thead>
                     <tr>
-                        <th class="text-yellow">Request ID</th>
+          
                         <th class="text-yellow">Requester Name</th>
                         <th class="text-yellow">Destination</th>
                         <th class="text-yellow">Departure Date</th>
-                        <th class="text-yellow">Return Date</th>
+                        <th class="text-yellow">Expected Return Date</th>
                         
                         <th class="text-yellow">Actions</th>
                     </tr>
@@ -31,7 +31,7 @@
                     <!-- Example data - Replace with Laravel Blade syntax -->
                     @foreach($reservations as $request)
                     <tr>
-                        <td>{{ $request->id }}</td>
+             
                         <td>{{ $request->requestor_name }}</td>
                         <td>{{ $request->destination }}</td>
                         <td>{{ $request->date_of_travel }}</td>
@@ -63,6 +63,10 @@
     
 
 
+</div>
+
+<div class="col-md-12 bg-success py-2">
+    {{ $reservations->links('vendor.pagination.default') }}
 </div>
 
 <script>

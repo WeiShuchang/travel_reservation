@@ -79,6 +79,11 @@
                         <input type="text" class="form-control" value="{{ $car->fuel_type }}" id="fuel_type" name="fuel_type">
                     </div>
 
+                    <div class="form-group col-md-6">
+                        <label for="seat_capacity">Seating Capacity</label>
+                        <input type="number" class="form-control"  value="{{ $car->seat_capacity }}" id="seat_capacity" name="seat_capacity" required>
+                    </div>
+
                     <div class="form-group col-md-6 mt-4">
                         <label for="car_status">Car Status</label>
                         <select name="car_status" class="px-3 py-2" id="car_status">

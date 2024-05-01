@@ -9,8 +9,14 @@
 
     <title>ELugan</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JavaScript (Bundle including Popper.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('home/css/styles.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('home/css/homestyles.css') }}">
@@ -26,28 +32,40 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
           <ul class="navbar-nav">
 
-            <li class="nav-item">
+            <li class="nav-item"  id="home">
               <a class="nav-link text-white mx-3" href="/user">Home</a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link text-white mx-3" href="{{ route('reservation.my_reservations') }}">Pending Requests</a>
+            
+            <li class="nav-item active" id="available_cars">
+              <a class="nav-link text-white mx-3" href="{{ route('reservation.show_available') }}">Available Cars and Drivers</a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link text-white mx-3" href="{{ route('reservation.my_reservations') }}">Approved Requests</a>
+            <li class="nav-item" id="pending_request">
+              <a class="nav-link text-white mx-3" href="{{ route('reservation.my_reservations') }}">Pending Requests
+              @if($user_pending_reservations > 0)
+                  <span class="badge badge-danger badge-pill">{{ $user_pending_reservations }}</span>
+              @endif
+              </a>
             </li>
 
-            <li class="nav-item active">
-              <a class="nav-link text-white mx-3" href="">Car Information<span class="sr-only">(current)</span></a>
+            <li class="nav-item" id="approved_request">
+              <a class="nav-link text-white mx-3" href="{{ route('reservation.user_approved') }}">Approved Requests
+                @if($user_approved_reservations > 0)
+                  <span class="badge badge-primary badge-pill">{{ $user_approved_reservations }}</span>
+                @endif
+              </a>
+              
+            </li>
+
+            <li class="nav-item active" id="travel_history">
+              <a class="nav-link text-white mx-3" href="{{ route('reservation.show_history') }}">Travel History</a>
             </li>
 
            
           </ul>
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link text-white mx-3" href="#">About System</a>
-            </li>
+        
             @if (Auth::check())
               <li class="nav-item">
                 <a href="#" onclick="$('#signOutBtn').click()" class="mx-3 nav-link text-white left">Logout</a>
@@ -85,5 +103,30 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+      $(document).ready(function() {
+        // Function to handle click event on navigation links
+        $(".navbar-nav .nav-link").on("click", function() {
+          // Remove 'is_active' class from all links
+          $(".navbar-nav .nav-link").removeClass("is_active");
+          // Add 'is_active' class to the clicked link
+          $(this).addClass("is_active");
+
+    
+          // Get the ID of the clicked link
+          var linkId = $(this).parent().attr("id");
+          // Store the ID in local storage
+          localStorage.setItem("activeLinkId", linkId);
+        });
+    
+        // Check if there's a stored active link ID
+        var activeLinkId = localStorage.getItem("activeLinkId");
+        if (activeLinkId) {
+          // Add 'is_active' class to the corresponding link
+          $("#" + activeLinkId + " .nav-link").addClass("is_active");
+        }
+      });
+    </script>
 </body>
 </html>

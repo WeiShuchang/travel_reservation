@@ -37,6 +37,7 @@ class CarController extends Controller
                 'model' => 'required|string|max:100',
                 'year' => 'required|integer|min:1900' ,
                 'color' => 'required|string|max:50',
+                'seat_capacity' => 'required|string|max:50',
                 'plate_number' => 'required|string|max:20',
                 'mileage' => 'required|min:0',
                 'engine_size' => 'required|string|max:50',
@@ -64,6 +65,7 @@ class CarController extends Controller
             $car->model = $validatedData['model'];
             $car->year = $validatedData['year'];
             $car->color = $validatedData['color'];
+            $car->seat_capacity = $validatedData['seat_capacity'];
             $car->plate_number = $validatedData['plate_number'];
             $car->mileage = $validatedData['mileage'];
             $car->engine_size = $validatedData['engine_size'];
@@ -115,6 +117,7 @@ class CarController extends Controller
                 'model' => 'required|string|max:100',
                 'year' => 'required|integer|min:1900' ,
                 'color' => 'required|string|max:50',
+                'seat_capacity' => 'required|string|max:50',
                 'plate_number' => 'required|string|max:20',
                 'mileage' => 'required|min:0',
                 'engine_size' => 'required|string|max:50',
@@ -130,6 +133,7 @@ class CarController extends Controller
                 'model' => $validatedData['model'],
                 'year' => $validatedData['year'],
                 'color' => $validatedData['color'],
+                'seat_capacity' => $validatedData['seat_capacity'],
                 'plate_number' => $validatedData['plate_number'],
                 'mileage' => $validatedData['mileage'],
                 'engine_size' => $validatedData['engine_size'],

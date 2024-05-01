@@ -31,13 +31,13 @@ class CreateReservationsTable extends Migration
             $table->boolean('is_cancelled')->default(false)->nullable();
 
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
             $table->unsignedBigInteger('driver_id')->nullable();
-            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('restrict');
 
             $table->unsignedBigInteger('car_id')->nullable();
-            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('restrict');
 
             $table->date('expected_return_date')->nullable();
             $table->timestamps();

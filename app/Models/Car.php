@@ -19,6 +19,7 @@ class Car extends Model
         'fuel_type',
         'car_picture',
         'car_status',
+        'seat_capacity',
     ];
 
     public function getCarPictureUrlAttribute()

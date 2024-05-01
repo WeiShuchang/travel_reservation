@@ -1,13 +1,13 @@
-@extends('administrator.base')
+@extends('user.base')
 
 @section('content')
 
 <div class="center bg-success2 pt-3">
-    <h2 class="fw-bolder text-warning">Approve Reservation</h2>
+    <h2 class="fw-bolder text-warning">Approved Reservation Details</h2>
 </div>
 
 <div class="bg-success2">
-<div class="container-fluid py-2 text-warning  vh-100" >
+<div class="container-fluid py-2 text-warning " >
 
     @if($errors->any())     
         <div class="alert alert-danger  ">
@@ -54,16 +54,6 @@
                         <h6>{{ $reservation->appointment_status }}</h6>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="col-md-4">
-        <table class="table table-bordered text-white">
-            <thead>
-                <th class="text-yellow font-weight-bold">Details:</th>
-            </thead>
-            <tbody>
                 <tr>
                     <td> 
                         <label for="destination" class="text-yellow font-weight-bold">Destination:</label>
@@ -88,66 +78,81 @@
                         <h6>{{ $reservation->requestor_address }}</h6>
                     </td>
                 </tr>
+                <tr>
+                    <td> 
+                        <label for="requestor_address" class="text-yellow font-weight-bold">Address (if non-BSU Employee):</label>
+                        <h6>{{ $reservation->number_of_passengers }}</h6>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <table class="table table-bordered text-yellow">
+            <thead>
+                <th colspan='2'>Car</th>
+            
+            </thead>
+            <tbody>
+                <tr>
+                    <td>  <img  class="img-fluid img-thumbnail" src="{{ asset('storage/cars/' . $car->car_picture) }}" alt="Car Picture"></td>
+                </tr>
+                <tr>
+                    <td> 
+                        <h4>Model: <span class="text-white font-weight-bold">{{ $car->model }}</span></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <h4>Make: <span class="text-white font-weight-bold">{{ $car->make }}</span></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <h4>Make: <span class="text-white font-weight-bold">{{ $car->plate_number }}</span></h4>
+                    </td>
+                </tr>
+              
+
+                       
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="col-md-4">
+        <table class="table table-bordered text-yellow">
+            <thead>
+                <th class="text-yellow font-weight-bold">Driver</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td> <img  class="img-fluid img-thumbnail"src="{{ asset('storage/drivers/' . $driver->driver_picture) }}" alt="Driver Picture"></td>
+            </tr>
+            <tr>
+                <td> 
+                    <h4>Model: <span class="text-white font-weight-bold">{{ $driver->driver_name }}</span></h4>
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                    <h4>Make: <span class="text-white font-weight-bold">{{ $driver->contact_number }}</span></h4>
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                    <h4>Return Date: <span class="text-white font-weight-bold">{{ date('F j, Y', strtotime($reservation->expected_return_date)) }}</span></h4>
+                </td>
+            </tr>
+
             </tbody>
         </table>
     </div>
 
 
 
-        <div class="col-md-4">
-            <table class="table table-bordered text-yellow">
-                <thead>
-                    <th>Assign Driver and Car</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <label for="number_of_passengers" class="text-yellow font-weight-bold">Number of Passengers Needed:</label>
-                        <input type="number" name="number_of_passengers" id="number_of_passengers" class="form-control  form-control-sm"" value="{{ $reservation->number_of_passengers }}">
-                    </td>
-                </tr>
-
-                    <tr>
-                        <td> 
-                            <label for="driver" class="text-yellow font-weight-bold">Assign Driver:</label>
-                            <select name="driver_id" id="" class="px-3 py-1">
-                                @foreach ($drivers as $driver)
-                                    <option value="{{$driver->id}}">{{$driver->driver_name}} </option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> 
-                            <label for="car" class="text-yellow font-weight-bold">Assign Car:</label>
-                            <select name="car_id" id=""  class="px-3 py-1">
-                                @foreach ($cars as $car)
-                                    <option value="{{$car->id}}">{{$car->make}} | {{$car->plate_number}}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> 
-                            <label for="expected_return_date" class="text-yellow font-weight-bold">Expected Return Date:</label>
-                            <input type="date" class="form-control form-control-sm" id="expected_return_date" name="expected_return_date" required>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td> 
-                            <div class="mx-3">
-                                <button button="button" onclick="confirmApprove()" class="btn btn-success">Approve Reservation</button>
-                                <a href="{{ route('reservation.index') }}" class="my-1 btn btn-warning">Cancel</a>
-                            </div>
-                            
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-                
-            </div>
+        
         </div>
     </div>
 

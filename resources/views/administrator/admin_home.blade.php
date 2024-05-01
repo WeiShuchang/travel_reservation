@@ -2,11 +2,7 @@
 
 @section('content')
 <div class="bg-success"> 
-    @if(session('success'))
-    <div class="alert alert-success" role="alert" id="alert-message">
-        {{ session('success') }}
-    </div>
-    @endif
+   
     <header class="bg-success py-5" style="height:100vh">
         <div class="container px-5">
             <div class="row gx-5 align-items-center justify-content-center">

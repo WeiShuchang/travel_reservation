@@ -39,7 +39,7 @@
                             <th class="text-yellow" scope="col">Picture</th>
                             <th class="text-yellow" scope="col">Plate Number</th>
                             <th class="text-yellow" scope="col">Car Status</th>
-                            <th class="text-yellow" scope="col">Transmission</th>
+                            <th class="text-yellow" scope="col">Seating Capacity</th>
                             <th class="text-yellow" scope="col">Edit</th>
                             <th class="text-yellow" scope="col">Delete</th>
                         </tr>
@@ -60,7 +60,7 @@
                             <td>{{ $car->plate_number }}</td>
 
                             <td>{{ $car->car_status }}</td>
-                            <td>{{ $car->transmission }}</td>
+                            <td>{{ $car->seat_capacity }} passengers</td>
                             <td><a class="btn btn-primary" href="{{ route('cars_inventory.edit', $car->id) }}">Edit</a></td>
                             <td>
                                 <form action="{{route('cars_inventory.destroy', $car->id)}}" method="post" id="deleteForm">

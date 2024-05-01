@@ -15,8 +15,9 @@
     <div class="bg-success2 row justify-content-start ml-3 pl-3">
         @if (!empty($num_pending_reservations) )
         @foreach ($reservations as $reservation)
-        <div class="card mx-2 col-md-3 mt-4 mb-4 bg-success text-white" style="width: 19rem;" onclick="location.href='{{ route('reservation.edit', $reservation->id) }}'">
-            <div class="card-body">
+
+        <div class="card mx-2 col-md-3 mt-4 mb-4 bg-success text-white" style="width: 19rem;" >
+            <div class="card-body" onclick="location.href='{{ route('reservation.edit', $reservation->id) }}'">
                 <div class="row">
                     <div class="col-md-8">
                         <h6 class="card-title font-weight-bold">Reservation by:</h6>
@@ -39,32 +40,35 @@
                     </ul>
                 </p>
             </div>
-            <div class="row p-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="{{ route('reservation.edit', $reservation->id) }}" class="btn btn-primary">View</a>
-                    </div>
-                    <div class="col-md-6">
-                        <form class="" action="" method="post" id="deleteForm">
-                            @csrf
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-12 pb-4 d-flex justify-content-center">
+                <form class="" action="{{ route('reservations.destroy', $reservation->id ) }}" method="post" id="deleteForm">
+                    @csrf
+                    @method("DELETE")
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Reservation</button>
+                </form>
             </div>
+
+
         </div>
+       
         @endforeach
         @else
         <div class="card mx-2 col-md-3 mt-4 mb-4 bg-success text-white" style="width: 19rem;">
             <div class="card-body ">
                 <div class="row">
-                    <h3 class="card-title font-weight-bold my-3 text-warning">No Existing Reservations</h3>
+                    <h3 class="card-title font-weight-bold mt-3 text-warning">No Existing Reservations</h3>
                 </div>
             </div>
         </div>
         @endif
     </div>
 </div>
+
+
+<div class="col-md-12 bg-success py-2">
+    {{ $reservations->links('vendor.pagination.default') }}
+</div>
+
 
 <script>
     function confirmDelete() {

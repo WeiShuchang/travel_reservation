@@ -10,9 +10,9 @@
     <div class="container py-2 text-white">
 
         @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
 
         @if(session('success'))
@@ -68,6 +68,11 @@
                 <div class="form-group col-md-6">
                     <label for="fuel_type">Fuel Type</label>
                     <input type="text" class="form-control" id="fuel_type" name="fuel_type" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="seat_capacity">Seating Capacity</label>
+                    <input type="number" class="form-control" id="seat_capacity" name="seat_capacity" required>
                 </div>
 
                 <div class="form-group col-md-6 mt-4">

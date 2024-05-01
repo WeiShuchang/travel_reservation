@@ -19,6 +19,7 @@ class CreateCarsTable extends Migration
             $table->decimal('engine_size', 8, 2);
             $table->string('transmission');
             $table->string('fuel_type')->nullable();
+            $table->string('seat_capacity');
             $table->string('car_picture')->nullable();
             $table->string('car_status')->default('available');
             $table->timestamps();

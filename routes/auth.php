@@ -10,20 +10,20 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Middleware\RedirectBasedOnRole;
+use App\Http\Middleware\RestrictUserAccess;
 use App\Http\Middleware\RestrictAdminAccess;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register')->middleware(RedirectIfAuthenticated::class);
+                ->name('register')->middleware(RestrictAdminAccess::class)->middleware(RedirectIfAuthenticated::class)->middleware(RestrictUserAccess::class);;
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store'])->middleware(RedirectIfAuthenticated::class)->middleware(RestrictAdminAccess::class)->middleware(RestrictUserAccess::class);;
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login')->middleware(RedirectIfAuthenticated::class);
+                ->name('login')->middleware(RedirectIfAuthenticated::class)->middleware(RestrictAdminAccess::class)->middleware(RestrictUserAccess::class);;
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store'])->middleware(RedirectIfAuthenticated::class);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->middleware(RedirectIfAuthenticated::class)->middleware(RestrictAdminAccess::class)->middleware(RestrictUserAccess::class);;
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
