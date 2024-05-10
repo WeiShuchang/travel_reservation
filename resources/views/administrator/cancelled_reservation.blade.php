@@ -18,12 +18,9 @@
             <table class="table table-bordered text-white bg-success2">
                 <thead>
                     <tr>
-                        <th class="text-yellow">Request ID</th>
                         <th class="text-yellow">Requester Name</th>
-                        <th class="text-yellow">Destination</th>
-                        <th class="text-yellow">Departure Date</th>
-                        <th class="text-yellow">Return Date</th>
-                        
+                        <th class="text-yellow">Cancelled At:</th>
+                        <th class="text-yellow">Reason of Cancellation:</th>
                         <th class="text-yellow">Actions</th>
                     </tr>
                 </thead>
@@ -31,11 +28,9 @@
                     <!-- Example data - Replace with Laravel Blade syntax -->
                     @foreach($reservations as $request)
                     <tr>
-                        <td>{{ $request->id }}</td>
-                        <td>{{ $request->requestor_name }}</td>
-                        <td>{{ $request->destination }}</td>
-                        <td>{{ $request->date_of_travel }}</td>
-                        <td>{{ $request->expected_return_date }}</td>
+                        <td>{{ $request->user->name }}</td>
+                        <td>{{ $request->updated_at->format('M d, Y') }}</td>
+                        <td>{{ $request->reason_for_cancel }}</td>
                         <td>
                             <form action="{{ route('reservations.destroy', $request->id) }}" method="POST" id="deleteForm">
                                 @csrf

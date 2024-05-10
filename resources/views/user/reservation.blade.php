@@ -30,10 +30,7 @@
             @csrf
 
             <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="requestor_name" class="text-yellow font-weight-bold">Requesting Official/Employee/Personnel:</label>
-                    <input type="text" class="form-control" id="requestor_name" name="requestor_name" required>
-                </div>
+                
                 <div class="form-group col-md-6">
                     <label for="office_department_college" class="text-yellow font-weight-bold">Office/College/Department:</label>
                     <input type="text" class="form-control" id="office_department_college" name="office_department_college" required>
@@ -44,7 +41,13 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="appointment_status" class="text-yellow font-weight-bold">Appointment/Contract Status:</label>
-                    <input type="text" class="form-control" id="appointment_status" name="appointment_status" required>
+                    <select class="form-control" id="appointment_status" name="appointment_status" required>
+                        <option value="Permanent">Permanent</option>
+                        <option value="Contractual">Contractual</option>
+                        <option value="Substitute">Substitute</option>
+                        <option value="Job-Order">Job-Order</option>
+                        <option value="Others">Others</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="requestor_address" class="text-yellow font-weight-bold">Requestor Address:</label>
@@ -62,21 +65,29 @@
                     <label for="date_of_travel" class="text-yellow font-weight-bold">Date of Travel:</label>
                     <input type="date" class="form-control" id="date_of_travel" name="date_of_travel" required>
                 </div>
+                <div  class="form-group col-md-6">
+                    <label for="expected_return_date" class="text-yellow font-weight-bold">Expected Return Date:</label>
+                    <input type="date" class="form-control" id="expected_return_date" name="expected_return_date" required>
+                </div>
+
                 <div class="form-group col-md-6">
                     <label for="purpose_of_travel" class="text-yellow font-weight-bold">Purpose of Travel:</label>
                     <input type="text" class="form-control" id="purpose_of_travel" name="purpose_of_travel" required>
                 </div>
 
+
                 <div class="form-group col-md-6 mt-4">
                     <button type="submit" class="btn btn-success col-md-3" onclick="confirmReservation()">Submit Details</button>
                     <a href="{{ route('user') }}" class="my-2 btn btn-warning col-md-3">Cancel</a>
                 </div>
+
             </div>
         </form>
     </div>
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 // Ensure the DOM is loaded before accessing elements
 document.addEventListener("DOMContentLoaded", function() {
@@ -130,6 +141,18 @@ function confirmReservation() {
         event.preventDefault(); 
     }
 }
+
+
+    $(document).ready(function() {
+        $('#appointment_status').change(function() {
+            if ($(this).val() === 'Others') {
+                $('#other_appointment_status').show();
+            } else {
+                $('#other_appointment_status').hide();
+            }
+        });
+    });
+
 
   
 </script>

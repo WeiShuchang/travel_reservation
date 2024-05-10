@@ -15,67 +15,75 @@ class CarSeeder extends Seeder
     public function run(): void
     {
         Car::create([
-            'make' => 'Toyota',
-            'model' => 'Camry',
+            'make' => 'FORTUNER',
+            'model' => 'Toyota',
             'year' => 2020,
             'color' => 'Silver',
-            'plate_number' => 'ABC123',
-            'mileage' => 25000,
-            'engine_size' => '2',
+            'plate_number' => 'SJV 107',
             'transmission' => 'Automatic',
             'fuel_type' => 'Gasoline',
+            'seat_capacity' => '4',
             'car_status' => 'available'
         ]);
 
         Car::create([
-            'make' => 'Honda',
-            'model' => 'Civic',
-            'year' => 2018,
-            'color' => 'Black',
-            'plate_number' => 'XYZ456',
-            'mileage' => 30000,
-            'engine_size' => '1',
+            'make' => 'ESTATE VAN',
+            'model' => 'Nissan',
+            'year' => 2020,
+            'color' => 'Silver',
+            'plate_number' => 'SKA 939',
             'transmission' => 'Automatic',
             'fuel_type' => 'Gasoline',
+            'seat_capacity' => '10',
             'car_status' => 'available'
         ]);
 
         Car::create([
-            'make' => 'Ford',
-            'model' => 'F-150',
-            'year' => 2019,
-            'color' => 'Red',
-            'plate_number' => 'DEF789',
-            'mileage' => 20000,
-            'engine_size' => '3',
+            'make' => 'REVO',
+            'model' => 'Toyota',
+            'year' => 2020,
+            'color' => 'Silver',
+            'plate_number' => 'SEL 944',
             'transmission' => 'Automatic',
             'fuel_type' => 'Gasoline',
+            'seat_capacity' => '4',
+            'car_status' => 'available'
+        ]);
+
+
+        Car::create([
+            'make' => 'HI ACE',
+            'model' => 'Toyota',
+            'year' => 2020,
+            'color' => 'Silver',
+            'plate_number' => 'SFH 273',
+            'transmission' => 'Automatic',
+            'fuel_type' => 'Gasoline',
+            'seat_capacity' => '9',
             'car_status' => 'available'
         ]);
 
         Car::create([
-            'make' => 'Chevrolet',
-            'model' => 'Cruze',
-            'year' => 2017,
-            'color' => 'Blue',
-            'plate_number' => 'GHI012',
-            'mileage' => 35000,
-            'engine_size' => '1',
+            'make' => 'VX',
+            'model' => 'Toyota',
+            'year' => 2020,
+            'color' => 'Silver',
+            'plate_number' => 'SDN 570',
             'transmission' => 'Automatic',
             'fuel_type' => 'Gasoline',
+            'seat_capacity' => '4',
             'car_status' => 'available'
         ]);
-
-        Car::create([ 
-            'make' => 'BMW',
-            'model' => '3 Series',
-            'year' => 2021,
-            'color' => 'White',
-            'plate_number' => 'JKL345',
-            'mileage' => 15000,
-            'engine_size' => '2',
+        
+        Car::create([
+            'make' => 'BUS',
+            'model' => 'Yutong',
+            'year' => 2020,
+            'color' => 'Silver',
+            'plate_number' => 'SAB 5998',
             'transmission' => 'Automatic',
             'fuel_type' => 'Gasoline',
+            'seat_capacity' => '45',
             'car_status' => 'available'
         ]);
 

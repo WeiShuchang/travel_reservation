@@ -51,16 +51,6 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="mileage">Mileage</label>
-                    <input type="number" class="form-control" id="mileage" name="mileage" required>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="engine_size">Engine Size</label>
-                    <input type="number" class="form-control" id="engine_size" name="engine_size" required>
-                </div>
-
-                <div class="form-group col-md-6">
                     <label for="transmission">Transmission</label>
                     <input type="text" class="form-control" id="transmission" name="transmission" required>
                 </div>

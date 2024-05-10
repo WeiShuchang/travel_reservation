@@ -15,8 +15,6 @@ class CreateCarsTable extends Migration
             $table->integer('year');
             $table->string('color');
             $table->string('plate_number');
-            $table->integer('mileage');
-            $table->decimal('engine_size', 8, 2);
             $table->string('transmission');
             $table->string('fuel_type')->nullable();
             $table->string('seat_capacity');

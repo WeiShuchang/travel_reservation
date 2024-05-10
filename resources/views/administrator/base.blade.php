@@ -28,7 +28,6 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
           <ul class="navbar-nav ">
-
             <li class="nav-item" id="home">
               <a class="nav-link text-white mx-3  {{ Request::is('administrator') ? 'active' : '' }}" id="home-link" href="{{ route('administrator') }}">Home</a>
             </li>

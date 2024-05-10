@@ -19,11 +19,16 @@
 </div>
 
 <div class="center bg-success">
-@if(session('success'))
-    <div class="alert alert-success" role="alert" id="alert-message">
-        {{ session('success') }}
-    </div>
-@endif
+    @if(session('success'))
+        <div class="alert alert-success" role="alert" id="alert-message">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 </div>
 
 <div class="center bg-success py-4">
@@ -44,7 +49,7 @@
                     </thead>
                     <tbody class="text-white">
                     @if ($drivers)
-                        @foreach ($drivers as $driver)
+                        @forelse ($drivers as $driver)
                         <tr>
                             <td>{{ $driver['driver_name'] }}</td>
                             <td>
@@ -66,9 +71,11 @@
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
-                    @else
-                        <tr>No Drivers Yet</tr>
+                        @empty
+                        <tr>
+                            <td colspan="10">No Drivers Available</td>
+                        </tr>
+                        @endforelse
                     @endif
                     </tbody>
                 </table>

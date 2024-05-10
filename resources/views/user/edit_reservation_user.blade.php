@@ -5,6 +5,31 @@
 <div class="center bg-success2 pt-3">
     <h2 class="fw-bolder text-warning">Pending Reservation</h2>
 </div>
+<!-- Add this modal HTML structure to your view -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-success">
+        <div class="modal-content bg-success2 text-warning">
+            <form method="post" id="cancelForm" action="{{ route('reservation.cancel_for_user', $reservation->id) }}" enctype="multipart/form-data" >
+                @csrf
+                @method('PUT')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="reason_for_cancel" class="form-label">Reason for Cancellation:</label>
+                        <textarea class="form-control" id="reason_for_cancel" name="reason_for_cancel" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="confirmCancel()" class="btn btn-danger">Cancel Reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="bg-success2">
 <div class="container-fluid py-2 text-warning  vh-100" >
@@ -23,14 +48,14 @@
     <div class="col-md-6">
         <table class="table table-bordered">
             <thead>
-                <th class="text-white">Details:</th>
+                <th class="text-yellow">Details:</th>
             </thead>
             <tbody>
                 
                 <tr>
                     <td> 
                         <label for="requestor_name" class="text-yellow font-weight-bold">Requesting Official/Employee/Personnel:</label>
-                        <h6 class="text-white font-weight-bold">{{ $reservation->requestor_name }}</h6>
+                        <h6 class="text-white font-weight-bold">{{ $reservation->user->name }}</h6>
                     </td>
                 </tr>
                 <tr>
@@ -51,6 +76,12 @@
                         <h6 class="text-white font-weight-bold">{{ $reservation->appointment_status }}</h6>
                     </td>
                 </tr>
+                <tr>
+                    <td> 
+                        <label for="destination" class="text-yellow font-weight-bold">Destination:</label>
+                        <h6 class="text-white font-weight-bold">{{ $reservation->destination }}</h6>
+                    </td>
+                </tr>
                 
             </tbody>
         </table>
@@ -58,21 +89,22 @@
 
     <div class="col-md-6">
         <table class="table table-bordered text-yellow">
-            <thead>
-                <th>Details:</th>
+            <thead >
+                <th class=" text-yellow">Details:</th>
             </thead>
             <tbody>
 
-                <tr>
-                    <td> 
-                        <label for="destination" class="text-yellow font-weight-bold">Destination:</label>
-                        <h6 class="text-white font-weight-bold">{{ $reservation->destination }}</h6>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td> 
                         <label for="date_of_travel" class="text-yellow font-weight-bold">Date of Approved Travel:</label>
                         <h6 class="text-white font-weight-bold">{{ $reservation->date_of_travel }}</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <label for="date_of_travel" class="text-yellow font-weight-bold">Expected Return Date:</label>
+                        <h6 class="text-white font-weight-bold">{{ $reservation->expected_return_date }}</h6>
                     </td>
                 </tr>
                 <tr>
@@ -94,8 +126,8 @@
 
     </div>
 </div>
-<a href="{{route('reservation.my_reservations')}}" class="btn btn-primary">Back</a>
-      
+    <a href="{{route('reservation.my_reservations')}}" class="btn btn-primary">Back</a> 
+   
 </div>
 </div>
 
@@ -151,6 +183,17 @@
             alertMessage.style.display = "none";
         }, 4000); 
     });
+
+     // Function to handle cancellation form submission confirmation
+     function confirmCancel() {
+        if (confirm("Are you sure you want to cancel this reservation?")) {
+            // Submit the form if confirmed
+            document.getElementById("cancelForm").submit();
+        } else {
+            // Prevent form submission if not confirmed
+            event.preventDefault();
+        }
+    }
 </script>
 
 @endsection

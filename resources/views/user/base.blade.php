@@ -58,8 +58,16 @@
               
             </li>
 
-            <li class="nav-item active" id="travel_history">
-              <a class="nav-link text-white mx-3" href="{{ route('reservation.show_history') }}">Travel History</a>
+         
+
+            <li class="nav-item dropdown mx-3">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown car-inventory-link driver-inventory-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Travels History
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item nav-link text" id="driver-inventory-link" href="{{ route('reservation.show_history') }}">Completed Travel</a>
+                <a class="dropdown-item nav-link text" id="car-inventory-link" href="{{ route('reservation.show_user_cancelled') }}">Cancelled Travel</a>
+              </div>
             </li>
 
            

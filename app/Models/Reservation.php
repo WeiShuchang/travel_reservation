@@ -10,7 +10,7 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'requestor_name',
+   
         'office_department_college',
         'contact_number',
         'appointment_status',
@@ -18,13 +18,14 @@ class Reservation extends Model
         'number_of_passengers',
         'destination',
         'date_of_travel',
+        'travel_status',
         'purpose_of_travel',
         'user_id',
-
+        'expected_return_date',
         'is_approved',
         'is_successful',
         'is_cancelled',
-        
+        'reason_for_cancel',
         'driver_id',
         'car_id',
         'expected_return_date',
@@ -38,6 +39,11 @@ class Reservation extends Model
     public function car()
     {
         return $this->belongsTo(Car::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
  

@@ -5,6 +5,31 @@
 <div class="center bg-success2 pt-3">
     <h2 class="fw-bolder text-warning">Approve Reservation</h2>
 </div>
+<!-- Add this modal HTML structure to your view -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-success">
+        <div class="modal-content bg-success2 text-warning">
+            <form method="post" id="cancelForm" action="{{ route('reservation.cancel', $reservation->id) }}" enctype="multipart/form-data" >
+                @csrf
+                @method('PUT')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="reason_for_cancel" class="form-label">Reason for Cancellation:</label>
+                        <textarea class="form-control" id="reason_for_cancel" name="reason_for_cancel" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="confirmCancel()" class="btn btn-danger">Cancel Reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="bg-success2">
 <div class="container-fluid py-2 text-warning  vh-100" >
@@ -33,7 +58,7 @@
                 <tr>
                     <td> 
                         <label for="requestor_name" class="text-yellow font-weight-bold">Requesting Official/Employee/Personnel:</label>
-                        <h6 >{{ $reservation->requestor_name }}</h6>
+                        <h6 >{{ $reservation->user->name }}</h6>
                     </td>
                 </tr>
                 <tr>
@@ -52,6 +77,12 @@
                     <td> 
                         <label for="appointment_status" class="text-yellow font-weight-bold">Appointment/Contract Status:</label>
                         <h6>{{ $reservation->appointment_status }}</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <label for="requestor_address" class="text-yellow font-weight-bold">Address (if non-BSU Employee):</label>
+                        <h6>{{ $reservation->requestor_address }}</h6>
                     </td>
                 </tr>
             </tbody>
@@ -78,16 +109,17 @@
                 </tr>
                 <tr>
                     <td> 
-                        <label for="purpose_of_travel" class="text-yellow font-weight-bold">Purpose of Travel:</label>
-                        <h6>{{ $reservation->purpose_of_travel }}</h6>
+                        <label for="date_of_travel" class="text-yellow font-weight-bold">Expected Return Date:</label>
+                        <h6>{{ $reservation->expected_return_date }}</h6>
                     </td>
                 </tr>
                 <tr>
                     <td> 
-                        <label for="requestor_address" class="text-yellow font-weight-bold">Address (if non-BSU Employee):</label>
-                        <h6>{{ $reservation->requestor_address }}</h6>
+                        <label for="purpose_of_travel" class="text-yellow font-weight-bold">Purpose of Travel:</label>
+                        <h6>{{ $reservation->purpose_of_travel }}</h6>
                     </td>
                 </tr>
+               
             </tbody>
         </table>
     </div>
@@ -136,21 +168,24 @@
                     </tr>
                     <tr>
                         <td> 
-                            <label for="expected_return_date" class="text-yellow font-weight-bold">Expected Return Date:</label>
-                            <input type="date" class="form-control form-control-sm" id="expected_return_date" name="expected_return_date" required>
+                            <label for="travel_status" class="text-yellow font-weight-bold">Travel Status:</label>
+                            <input type="text" class="form-control" id="travel_status" name="travel_status" value="{{$reservation->travel_status}}" >
                         </td>
                     </tr>
-
+               
                     <tr>
                         <td> 
                             <div class="mx-3">
                                 <button button="button" onclick="confirmApprove()" class="btn btn-success">Approve Reservation</button>
-                                <a href="{{ route('reservation.index') }}" class="my-1 btn btn-warning">Cancel</a>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                    Cancel Reservation
+                                </button>
                             </div>
                             
                         </td>
                     </tr>
                     
+                            
                 </tbody>
             </table>
                 
@@ -161,6 +196,8 @@
     </form>
 </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     function confirmApprove() {
@@ -182,6 +219,17 @@
             alertMessage.style.display = "none";
         }, 4000); 
     });
+
+     // Function to handle cancellation form submission confirmation
+     function confirmCancel() {
+        if (confirm("Are you sure you want to cancel this reservation?")) {
+            // Submit the form if confirmed
+            document.getElementById("cancelForm").submit();
+        } else {
+            // Prevent form submission if not confirmed
+            event.preventDefault();
+        }
+    }
 </script>
 
 @endsection

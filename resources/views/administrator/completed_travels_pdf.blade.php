@@ -43,18 +43,30 @@
         th {
             background-color: #f2f2f2; /* Header background color */
         }
+
+        /* Top center text */
+        .top-center {
+            text-align: center;
+            margin-top: 20px; /* Adjust as needed */
+            margin-bottom: 10px; /* Adjust as needed */
+            font-weight: bold; /* Adjust as needed */
+            font-size: 18px; /* Adjust as needed */
+        }
     </style>
 </head>
 <body>
 
-<!-- Logo on the left -->
-<img src="" alt="Left Logo" class="logo-left">
-
-<!-- Logo on the right -->
-<img src="" alt="Right Logo" class="logo-right">
+<!-- Top center text -->
+<div class="top-center">
+    Republic of the Philippines<br>
+    BENGUET STATE UNIVERSITY<br>
+    COLLEGE OF INFORMATION SCIENCES<br>
+    Department of Information Technology<br>
+    2601, La Trinidad, Benguet
+</div>
 
 <!-- Title in the center -->
-<div class="title">Completed Travels</div>
+<div class="title">E-Lugan: Completed Travels</div>
 
 <!-- Table -->
 <table>
@@ -69,7 +81,7 @@
     <tbody>
         @foreach($reservations as $reservation)
         <tr>
-            <td>{{ $reservation->requestor_name }}</td>
+            <td>{{ $reservation->user->name }}</td>
             <td>{{ $reservation->destination }}</td>
             <td>{{ $reservation->date_of_travel }}</td>
             <td>{{ $reservation->expected_return_date }}</td>

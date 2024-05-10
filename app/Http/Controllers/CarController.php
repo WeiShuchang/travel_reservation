@@ -39,8 +39,6 @@ class CarController extends Controller
                 'color' => 'required|string|max:50',
                 'seat_capacity' => 'required|string|max:50',
                 'plate_number' => 'required|string|max:20',
-                'mileage' => 'required|min:0',
-                'engine_size' => 'required|string|max:50',
                 'transmission' => 'required|string|max:50',
                 'fuel_type' => 'required|string|max:50',
                 'car_status' => 'required|string|max:50',
@@ -67,8 +65,6 @@ class CarController extends Controller
             $car->color = $validatedData['color'];
             $car->seat_capacity = $validatedData['seat_capacity'];
             $car->plate_number = $validatedData['plate_number'];
-            $car->mileage = $validatedData['mileage'];
-            $car->engine_size = $validatedData['engine_size'];
             $car->transmission = $validatedData['transmission'];
             $car->fuel_type = $validatedData['fuel_type'];
             $car->car_status = $validatedData['car_status'];
@@ -119,8 +115,6 @@ class CarController extends Controller
                 'color' => 'required|string|max:50',
                 'seat_capacity' => 'required|string|max:50',
                 'plate_number' => 'required|string|max:20',
-                'mileage' => 'required|min:0',
-                'engine_size' => 'required|string|max:50',
                 'transmission' => 'required|string|max:50',
                 'fuel_type' => 'required|string|max:50',
                 'car_status' => 'required|string|max:50',
@@ -135,8 +129,6 @@ class CarController extends Controller
                 'color' => $validatedData['color'],
                 'seat_capacity' => $validatedData['seat_capacity'],
                 'plate_number' => $validatedData['plate_number'],
-                'mileage' => $validatedData['mileage'],
-                'engine_size' => $validatedData['engine_size'],
                 'transmission' => $validatedData['transmission'],
                 'fuel_type' => $validatedData['fuel_type'],
                 'car_status' => $validatedData['car_status'],
@@ -172,8 +164,19 @@ class CarController extends Controller
      */
     public function destroy($car_id)
     {
-        $car = Car::findOrFail($car_id);
-        $car->delete();
-        return Redirect::route('cars_inventory.index')->with('success', 'Car successfully deleted');
+        try {
+            $car = Car::findOrFail($car_id);
+            $car->delete();
+            return Redirect::route('cars_inventory.index')->with('success', 'Car successfully deleted');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check if the exception is due to foreign key constraint violation
+            if ($e->errorInfo[1] === 1451) {
+                return Redirect::back()->with('error', 'Cannot delete car because it is associated with an existing reservations.');
+            } else {
+                // Handle other database errors
+                return Redirect::back()->with('error', 'Failed to delete car. Please try again later.');
+            }
+        }
     }
+    
 }

@@ -23,6 +23,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             $user_approved_reservations = 0;
             $user_pending_reservations = 0;
             $user_successful_reservations = 0;
+            $user_cancelled_reservations = 0;
 
 
             // If user is logged in, get the user's reservations
@@ -42,6 +43,12 @@ class ViewComposerServiceProvider extends ServiceProvider
                     ->where('is_cancelled', false)
                     ->where('is_successful', true)
                     ->count();
+
+                $user_cancelled_reservations  = Reservation::where('is_approved', false)
+                    ->where('user_id', $user->id)
+                    ->where('is_cancelled', true)
+                    ->where('is_successful', false)
+                    ->count();
             }
 
             $view->with([
@@ -50,6 +57,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'user_approved_reservations' => $user_approved_reservations,
                 'user_pending_reservations' => $user_pending_reservations,
                 'user_successful_reservations' => $user_successful_reservations,
+                'user_cancelled_reservations' => $user_cancelled_reservations,
             ]);
         });
     }

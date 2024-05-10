@@ -18,33 +18,38 @@
             <table class="table table-bordered text-white bg-success2">
                 <thead>
                     <tr>
-                  
                         <th class="text-yellow">Requester Name</th>
                         <th class="text-yellow">Destination</th>
                         <th class="text-yellow">Departure Date</th>
                         <th class="text-yellow">Return Date</th>
-                        
                         <th class="text-yellow">Actions</th>
+                        <th class="text-yellow">Day's of Travel</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Example data - Replace with Laravel Blade syntax -->
                     @forelse($reservations as $request)
                     <tr>
-                 
-                        <td>{{ $request->requestor_name }}</td>
+                        <td>{{ $request->user->name }}</td>
                         <td>{{ $request->destination }}</td>
                         <td>{{ $request->date_of_travel }}</td>
                         <td>{{ $request->expected_return_date }}</td>
                         <td>
-                        <a href="{{route('reservation.show_details', $request->id)}}" class="btn btn-sm btn-primary mb-2" >Show Details</a>
-                            
+                            <a href="{{ route('reservation.show_details', $request->id) }}" class="btn btn-sm btn-primary mb-2">Show Details</a>
                         </td>
-                      
+                        <td>
+                            @php
+                                $startDate = new DateTime($request->date_of_travel);
+                                $endDate = new DateTime($request->expected_return_date);
+                                $interval = $startDate->diff($endDate);
+                                $travelDays = $interval->format('%a');
+                            @endphp
+                            {{ $travelDays }} days
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td>No Reservations</td>
+                        <td colspan="6">No Reservations</td>
                     </tr>
                     @endforelse
                 </tbody>

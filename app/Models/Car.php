@@ -13,8 +13,6 @@ class Car extends Model
         'year',
         'color',
         'plate_number',
-        'mileage',
-        'engine_size',
         'transmission',
         'fuel_type',
         'car_picture',

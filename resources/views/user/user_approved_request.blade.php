@@ -25,6 +25,8 @@
                         <th class="text-yellow">Destination</th>
                         <th class="text-yellow">Departure Date</th>
                         <th class="text-yellow">Expected Return Date</th>
+                        <th class="text-yellow">Days of Travel</th>
+                        <th class="text-yellow">Travel Status</th>
                         
                         <th class="text-yellow">Actions</th>
                     </tr>
@@ -34,21 +36,18 @@
                     @forelse($reservations as $request)
                     <tr>
              
-                        <td>{{ $request->requestor_name }}</td>
+                        <td>{{ $request->user->name }}</td>
                         <td>{{ $request->destination }}</td>
                         <td>{{ $request->date_of_travel }}</td>
                         <td>{{ $request->expected_return_date }}</td>
+                        <td>{{ \Carbon\Carbon::parse($request->date_of_travel)->diffInDays(\Carbon\Carbon::parse($request->expected_return_date)) }}</td>
+                        <td>{{ $request->travel_status }}</td>
                       
                         <td >
                            
                             <!-- Mark as Complete button -->
                             <a href="{{route('reservation.show_details', $request->id)}}" class="btn btn-sm btn-primary mb-2" >Show Details</a>
-                            <form action="{{ route('reservations.cancel', $request->id) }}" method="POST" id="cancelForm">
-                                @csrf
-                                @method("PUT")
-                                <button type="submit" class="btn btn-sm btn-danger mb-1" onclick="confirmCancel()">Cancel</button>
-                            </form>
-
+                           
                         
                         </td>
                     </tr>

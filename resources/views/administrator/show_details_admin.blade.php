@@ -1,4 +1,4 @@
-@extends('user.base')
+@extends('administrator.base')
 
 @section('content')
 
@@ -20,9 +20,7 @@
     @endif
 
 
-<form method="post" action="{{ route('reservation.update', $reservation->id) }}" enctype="multipart/form-data" id="deleteForm">
-    @csrf
-    @method("PUT")
+
 <div class="row ">
     <div class="col-md-4">
         <table class="table table-bordered text-white">
@@ -84,6 +82,7 @@
                         <h6>{{ $reservation->number_of_passengers }}</h6>
                     </td>
                 </tr>
+              
             </tbody>
         </table>
     </div>
@@ -113,6 +112,11 @@
                         <h4>Make: <span class="text-white font-weight-bold">{{ $car->plate_number }}</span></h4>
                     </td>
                 </tr>
+                <tr>
+                    <td> 
+                        <h4>Number of Passengers: <span class="text-white font-weight-bold">{{ $reservation->number_of_passengers }}</span></h4>
+                    </td>
+                </tr>
               
 
                        
@@ -132,12 +136,12 @@
             </tr>
             <tr>
                 <td> 
-                    <h4>Model: <span class="text-white font-weight-bold">{{ $driver->driver_name }}</span></h4>
+                    <h4>Name: <span class="text-white font-weight-bold">{{ $driver->driver_name }}</span></h4>
                 </td>
             </tr>
             <tr>
                 <td> 
-                    <h4>Make: <span class="text-white font-weight-bold">{{ $driver->contact_number }}</span></h4>
+                    <h4>Contact #: <span class="text-white font-weight-bold">{{ $driver->contact_number }}</span></h4>
                 </td>
             </tr>
             <tr>
@@ -145,25 +149,47 @@
                     <h4>Return Date: <span class="text-white font-weight-bold">{{ date('F j, Y', strtotime($reservation->expected_return_date)) }}</span></h4>
                 </td>
             </tr>
+            <tr>
+            <form method="post" action="{{ route('reservation.travel_status_update', $reservation->id) }}" enctype="multipart/form-data" id="updateForm">
+                @csrf
+                @method("PUT")
+
+                <td> 
+                    <h4>Travel Status:</h4>
+                    <input type="text" class="form-control" id="travel_status" name="travel_status" value="{{$reservation->travel_status}}" required>
+                </td>
+            </form>
+            </tr>
+            <tr>
+                <td><button button="button" onclick="confirmApprove()" class="btn btn-success">Edit Travel Status</button></td>
+            </tr>
+            
 
             </tbody>
+            <tr>
+           
         </table>
     </div>
+<div>
 
+
+             
+</div>
 
 
         
         </div>
     </div>
 
-    </form>
+
 </div>
 </div>
 
 <script>
+     
     function confirmApprove() {
-        if (confirm("Are you sure you want to Update Status?")) {
-            document.getElementById("deleteForm").submit();
+        if (confirm("Are you sure you want to Update Travel Status?")) {
+            document.getElementById("updateForm").submit();
         }else{
             event.preventDefault(); 
         }

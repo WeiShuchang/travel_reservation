@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h6 class="card-title font-weight-bold">Reservation by:</h6>
-                        <h5 class="card-title text-warning font-weight-bolder">{{ $reservation->requestor_name }}</h5>
+                        <h5 class="card-title text-warning font-weight-bolder">{{ $reservation->user->name }}</h5>
                         <h6 class="card-title font-weight-bold mt-4">Reason for Travel:</h6>
                         <h6 class="card-title text-warning font-weight-bolder">{{ $reservation->purpose_of_travel }}</h6>
                     </div>
@@ -40,13 +40,13 @@
                     </ul>
                 </p>
             </div>
-            <div class="col-md-12 pb-4 d-flex justify-content-center">
+            {{--<div class="col-md-12 pb-4 d-flex justify-content-center">
                 <form class="" action="{{ route('reservations.destroy', $reservation->id ) }}" method="post" id="deleteForm">
                     @csrf
                     @method("DELETE")
                     <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Reservation</button>
                 </form>
-            </div>
+            </div>--}}
 
 
         </div>

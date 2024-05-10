@@ -15,39 +15,48 @@ class DriverSeeder extends Seeder
     public function run(): void
     {
         Driver::create([ 
-            'driver_name' => 'John Doe',
+            'driver_name' => "John C. Delmas",
+            'license_number' => '1245FSDF',
+            'contact_number' => '09391687338',
+            'driver_status' => 'available',
+        ]);
+        
+        Driver::create([ 
+            'driver_name' => 'Argel D. Valdez',
             'license_number' => 'ABCD1234',
-            'contact_number' => '1234567890',
+            'contact_number' => '09292170529',
             'driver_status' => 'available',
         ]);
 
         Driver::create([ 
-            'driver_name' => 'Jane Smith',
+            'driver_name' => 'Anatolio T. Garcia Jr.',
             'license_number' => 'EFGH5678',
-            'contact_number' => '9876543210',
+            'contact_number' => '09993559398',
             'driver_status' => 'available',
         ]);
 
         Driver::create([ 
-            'driver_name' => 'Michael Johnson',
+            'driver_name' => 'Gregory T. Sudaypan',
             'license_number' => 'IJKL9012',
-            'contact_number' => '4567890123',
+            'contact_number' => '09192144418',
             'driver_status' => 'available',
         ]);
 
         Driver::create([ 
-            'driver_name' => 'Emily Brown',
+            'driver_name' => 'Wilmer T. Toribio',
             'license_number' => 'MNOP3456',
-            'contact_number' => '7890123456',
+            'contact_number' => '09070872046',
             'driver_status' => 'available',
         ]);
 
         Driver::create([ 
-            'driver_name' => 'David Wilson',
+            'driver_name' => 'Reyner A. Berato',
             'license_number' => 'QRST7890',
-            'contact_number' => '2345678901',
+            'contact_number' => '09102684953',
             'driver_status' => 'available',
         ]);
+
+     
 
     }
 }

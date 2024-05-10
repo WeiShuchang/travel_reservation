@@ -112,8 +112,19 @@ class DriverController extends Controller
 
     public function destroy($driver_id)
     {
-        $driver = Driver::findOrFail($driver_id);
-        $driver->delete();
-        return Redirect::route('drivers_inventory.index')->with('success', 'Driver successfully deleted');
+        try {
+            $driver = Driver::findOrFail($driver_id);
+            $driver->delete();
+            return Redirect::route('drivers_inventory.index')->with('success', 'Driver successfully deleted');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check if the exception is due to foreign key constraint violation
+            if ($e->errorInfo[1] === 1451) {
+                return Redirect::back()->with('error', 'Cannot delete driver because they are associated with an existing reservations.');
+            } else {
+                // Handle other database errors
+                return Redirect::back()->with('error', 'Failed to delete driver. Please try again later.');
+            }
+        }
     }
+    
 }

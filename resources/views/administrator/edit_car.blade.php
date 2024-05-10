@@ -60,16 +60,6 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="mileage">Mileage</label>
-                        <input type="number" class="form-control" value="{{ $car->mileage }}" id="mileage" name="mileage">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="engine_size">Engine Size</label>
-                        <input type="text" class="form-control" value="{{ $car->engine_size }}" id="engine_size" name="engine_size">
-                    </div>
-
-                    <div class="form-group col-md-6">
                         <label for="transmission">Transmission</label>
                         <input type="text" class="form-control" value="{{ $car->transmission }}" id="transmission" name="transmission">
                     </div>
